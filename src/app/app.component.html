@@ -1,14 +1,26 @@
-<p-tabView>
-  <p-tabPanel header="Dictionaries">
-    Content 1
-  </p-tabPanel>
-  <p-tabPanel header="Settings">
-    Content 2
-  </p-tabPanel>
-  <p-tabPanel header="Upload">
-    Content 3
-  </p-tabPanel>
-  <p-tabPanel header="Trash">
-    Content 3
-  </p-tabPanel>
-</p-tabView>
+<div class="table container">
+  <div style="display: flex; justify-content: space-evenly;padding-top:10px;" class="table-row header">
+      <span (click)="this.contentViewName='dictionaries'"
+            [ngClass]="{  'navLink':true,'navLink-selected': this.contentViewName=='dictionaries' }"
+      >Dictionaries</span>
+    <span (click)="this.contentViewName='upload'"
+          [ngClass]="{  'navLink':true,'navLink-selected': this.contentViewName=='upload' }"
+    >Upload</span>
+    <span (click)="this.contentViewName='settings'"
+          [ngClass]="{  'navLink':true,'navLink-selected': this.contentViewName=='settings' }"
+    >Settings</span>
+    <span (click)="this.contentViewName='trash'"
+          [ngClass]="{  'navLink':true,'navLink-selected': this.contentViewName=='trash' }"
+    >Trash</span>
+  </div>
+  <div class="table-row body">
+    <div style="padding: 0" class="table-cell body-content-outer-wrapper">
+      <div [ngSwitch]="this.contentViewName" style="overflow: hidden;" class="body-content-inner-wrapper">
+        <app-dictinaries-panel *ngSwitchCase="'dictionaries'"></app-dictinaries-panel>
+        <app-settings-panel *ngSwitchCase="'upload'"></app-settings-panel>
+        <app-settings-panel *ngSwitchCase="'settings'"></app-settings-panel>
+        <app-settings-panel *ngSwitchCase="'trash'"></app-settings-panel>
+      </div>
+    </div>
+  </div>
+</div>
