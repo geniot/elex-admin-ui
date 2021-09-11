@@ -1,18 +1,18 @@
-.dictionaries-tbl {
-  /*border: 1px solid black;*/
-  border: 0;
-  width: 100%;
-  vertical-align: top;
+.even {
+  background-color: #ececec;
 }
 
-.dictionaries-cell{
-  padding: 10px;
+.odd {
+  background-color: #f5f5f5;
 }
 
-.odd{
-  background-color: #f9f9f9;
+.dictionary{
+  color:black;
+  padding:5px;
+  cursor:default;
 }
 
-.even{
-  background-color:whitesmoke;
+.dictionary-selected{
+  background-color: orange;
+  color:white;
 }

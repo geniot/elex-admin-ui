@@ -1,26 +1,17 @@
-<div class="table container">
-  <div style="display: flex; justify-content: space-evenly;padding-top:10px;" class="table-row header">
-      <span (click)="this.contentViewName='dictionaries'"
-            [ngClass]="{  'navLink':true,'navLink-selected': this.contentViewName=='dictionaries' }"
-      >Dictionaries</span>
-    <span (click)="this.contentViewName='upload'"
-          [ngClass]="{  'navLink':true,'navLink-selected': this.contentViewName=='upload' }"
-    >Upload</span>
-    <span (click)="this.contentViewName='settings'"
-          [ngClass]="{  'navLink':true,'navLink-selected': this.contentViewName=='settings' }"
-    >Settings</span>
-    <span (click)="this.contentViewName='trash'"
-          [ngClass]="{  'navLink':true,'navLink-selected': this.contentViewName=='trash' }"
-    >Trash</span>
-  </div>
-  <div class="table-row body">
-    <div style="padding: 0" class="table-cell body-content-outer-wrapper">
-      <div [ngSwitch]="this.contentViewName" style="overflow: hidden;" class="body-content-inner-wrapper">
-        <app-dictinaries-panel *ngSwitchCase="'dictionaries'"></app-dictinaries-panel>
-        <app-settings-panel *ngSwitchCase="'upload'"></app-settings-panel>
-        <app-settings-panel *ngSwitchCase="'settings'"></app-settings-panel>
-        <app-settings-panel *ngSwitchCase="'trash'"></app-settings-panel>
-      </div>
-    </div>
-  </div>
-</div>
+<as-split direction="horizontal" (dragEnd)="onDragEnd($event)">
+
+  <as-split-area *ngIf="config.columns[0].visible" [size]="config.columns[0].size">
+    <app-dictinaries-panel></app-dictinaries-panel>
+  </as-split-area>
+
+
+  <as-split-area *ngIf="config.columns[1].visible" [size]="config.columns[1].size">
+    <app-info-panel></app-info-panel>
+  </as-split-area>
+
+
+  <as-split-area *ngIf="config.columns[2].visible" [size]="config.columns[2].size">
+    <app-settings-panel></app-settings-panel>
+  </as-split-area>
+
+</as-split>

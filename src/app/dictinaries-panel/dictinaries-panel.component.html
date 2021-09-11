@@ -1,24 +1,24 @@
 <div class="table container">
+  <div class="table-row header">
+    <div class="ui-widget ui-widget-header">
+      <img src="assets/books.png"/>
+      &nbsp;&nbsp;<b>Dictionaries</b>
+    </div>
+  </div>
   <div class="table-row body">
     <div class="table-cell body-content-outer-wrapper">
       <div class="body-content-inner-wrapper">
-        <div class="body-content">
-          <table class="dictionaries-tbl">
-            <tbody style="vertical-align: top;">
-            <tr *ngFor="let dictionary of dictionaries;let odd=odd; let even=even;"
-                [ngClass]="odd ? 'odd' : 'even'">
-              <td class="dictionaries-cell">icon</td>
-              <td class="dictionaries-cell">{{dictionary.name}}</td>
-              <td class="dictionaries-cell">size</td>
-              <td class="dictionaries-cell">action</td>
-            </tr>
-            </tbody>
-          </table>
+        <div *ngFor="let dictionary of dictionaries;let index=index; let odd=odd; let even=even;"
+             [ngClass]="odd ? 'odd' : 'even'"
+        >
+          <div (click)="onSelect(dictionary)"
+               [ngClass]="{  'dictionary':true,'dictionary-selected': dictionary.selected }">{{dictionary.name}}</div>
+
         </div>
       </div>
     </div>
   </div>
-
+  <div class="table-row header">
+    <div class="ui-widget ui-widget-footer">actions</div>
+  </div>
 </div>
-
-

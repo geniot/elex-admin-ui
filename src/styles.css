@@ -34,7 +34,7 @@ body {
   flex: 0 1 auto;
 }
 
-.ui-widget-header {
+.ui-widget {
   height: 40px;
   color: black;
   text-align: center;
@@ -44,7 +44,19 @@ body {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  margin: 10px;
+  padding-left: 10px;
+}
+
+.ui-widget-header{
+  margin-left:10px;
+  margin-right:10px;
+  margin-top:10px;
+}
+
+.ui-widget-footer{
+  margin-left:10px;
+  margin-right:10px;
+  margin-bottom:10px;
 }
 
 .container {
@@ -66,7 +78,8 @@ body {
 
 .body-content-outer-wrapper {
   height: 100%;
-  padding:10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .body-content-inner-wrapper {

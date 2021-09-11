@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Dictionary} from "../dictionary";
+import {InfoService} from "../infoservice";
+import {Dictionary} from "../model/dictionary";
 
 @Component({
   selector: 'app-dictinaries-panel',
@@ -9,14 +10,27 @@ import {Dictionary} from "../dictionary";
 export class DictinariesPanelComponent implements OnInit {
   dictionaries: Dictionary[] = [];
 
-  constructor() {
+  constructor(private infoService: InfoService) {
   }
 
   ngOnInit(): void {
-    for (let i = 0; i < 10; i++) {
-      let dictionary: Dictionary = new Dictionary();
-      dictionary.name = "name " + i;
-      this.dictionaries.push(dictionary);
+    this.infoService.model.asObservable().subscribe(
+      model => {
+        this.dictionaries = model.dictionaries;
+      });
+  }
+
+  onSelect(d: Dictionary) {
+    for (let dictionary of this.dictionaries) {
+      if (dictionary == d) {
+        if (dictionary.selected) {
+          dictionary.selected = false;
+        } else {
+          dictionary.selected = true;
+        }
+      } else {
+        dictionary.selected = false;
+      }
     }
   }
 
