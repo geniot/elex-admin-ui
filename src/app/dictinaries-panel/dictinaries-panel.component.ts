@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {InfoService} from "../infoservice";
-import {Dictionary} from "../model/dictionary";
+import {AdminDictionary} from "../model/admindictionary";
 
 @Component({
   selector: 'app-dictinaries-panel',
@@ -8,7 +8,7 @@ import {Dictionary} from "../model/dictionary";
   styleUrls: ['./dictinaries-panel.component.css']
 })
 export class DictinariesPanelComponent implements OnInit {
-  dictionaries: Dictionary[] = [];
+  dictionaries: AdminDictionary[] = [];
 
   constructor(private infoService: InfoService) {
   }
@@ -20,18 +20,21 @@ export class DictinariesPanelComponent implements OnInit {
       });
   }
 
-  onSelect(d: Dictionary) {
+  onSelect(d: AdminDictionary) {
     for (let dictionary of this.dictionaries) {
       if (dictionary == d) {
         if (dictionary.selected) {
           dictionary.selected = false;
+          this.infoService.selectedDictionary.next(AdminDictionary.EMPTY);
         } else {
           dictionary.selected = true;
+          this.infoService.selectedDictionary.next(dictionary);
         }
-      } else {
+      }else{
         dictionary.selected = false;
       }
     }
+    this.infoService.saveState();
   }
 
 }

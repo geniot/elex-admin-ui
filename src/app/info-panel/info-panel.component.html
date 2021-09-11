@@ -1,17 +1,48 @@
 <div class="table container">
   <div class="table-row header">
     <div class="ui-widget ui-widget-header">
-      <img src="assets/information.png"/>
-      &nbsp;&nbsp;<b>Information</b>
+      <div *ngIf="selectedDictionary">
+        <img title="{{selectedDictionary.name}}"
+             style="vertical-align: text-bottom"
+             src="{{baseApiUrl}}/icon?id={{selectedDictionary.id}}" width="14" height="21">
+        &nbsp;&nbsp;<b>{{selectedDictionary.name}}</b>
+      </div>
     </div>
   </div>
-<div class="table-row body">
-  <div class="table-cell body-content-outer-wrapper">
-    <div class="body-content-inner-wrapper">
+  <div class="table-row body">
+    <div class="table-cell body-content-outer-wrapper">
+      <div *ngIf="selectedDictionary" class="body-content-inner-wrapper">
+        <table id="dictionary">
+          <tbody>
+          <tr><td style="width:150px;">File</td><td>{{selectedDictionary.dataPath}}<span style="color:blue;">{{selectedDictionary.fileName}}</span></td></tr>
+          <tr><td>Size</td><td>{{selectedDictionary.fileSize}}&nbsp;bytes</td></tr>
+          <tr><td>Number of Entries</td><td>{{selectedDictionary.entries}}</td></tr>
+          <tr><td>Index Language</td><td>{{selectedDictionary.indexLanguageCode}}</td></tr>
+          <tr><td>Contents Language</td><td>{{selectedDictionary.contentsLanguageCode}}</td></tr>
+          <tr><td>Resources File</td>
+            <td *ngIf="selectedDictionary.resourcesFileName;else elseBlock">
+              {{selectedDictionary.dataPath}}<span style="color:blue;">{{selectedDictionary.resourcesFileName}}</span>
+            </td>
+            <ng-template #elseBlock>
+              <td>-</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>Resources Size</td>
+            <td *ngIf="selectedDictionary.resourcesFileName;else elseBlock">{{selectedDictionary.resourcesFileSize}}&nbsp;bytes</td>
+          </tr>
+          <tr>
+            <td>Resources Count</td>
+            <td *ngIf="selectedDictionary.resourcesFileName;else elseBlock">{{selectedDictionary.resourcesCount}}</td>
+          </tr>
+          <tr><td>Full-text Index Size</td><td>{{selectedDictionary.ftIndexSize}}&nbsp;bytes</td></tr>
+          <tr><td>Total Size</td><td>{{selectedDictionary.totalSize}}&nbsp;bytes</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
-<div class="table-row header">
-  <div class="ui-widget ui-widget-footer">actions</div>
-</div>
+  <div class="table-row header">
+    <div class="ui-widget ui-widget-footer">actions</div>
+  </div>
 </div>

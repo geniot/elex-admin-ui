@@ -4,22 +4,21 @@ import {BehaviorSubject} from 'rxjs';
 import {Model} from "./model/model";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../environments/environment";
+import {AdminDictionary} from "./model/admindictionary";
 
 
 @Injectable({providedIn: 'root'})
 export class InfoService {
   baseApiUrl = environment.BASE_API_URL;
-
   modelLocalStorageName = 'elex-admin-modelLocalStorageName';
-  private dataUrl = this.baseApiUrl + '/admin';
-
+  dataUrl = this.baseApiUrl + '/admin';
   model: BehaviorSubject<Model> = new BehaviorSubject(new Model());
+  selectedDictionary: BehaviorSubject<AdminDictionary> = new BehaviorSubject(AdminDictionary.EMPTY);
 
   constructor(public http: HttpClient) {
-
     let m: Model = new Model();
     if (localStorage.getItem(this.modelLocalStorageName)) {
-      m = JSON.parse(localStorage.getItem(this.modelLocalStorageName));
+      m = JSON.parse(localStorage.getItem(this.modelLocalStorageName)!);
     }
     m.baseApiUrl = this.baseApiUrl;
     this.model.next(m);
