@@ -10,6 +10,25 @@
   padding: 8px;
 }
 
+#dictionary a{
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid blue;
+  padding: 3px;
+  background-color:azure;
+  font-size: 8pt;
+}
+
+#dictionary .disabled-link{
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid lightgray;
+  padding: 3px;
+  color: lightgray;
+  background-color:azure;
+  font-size: 8pt;
+}
+
 #dictionary tr:nth-child(even){background-color: #f2f2f2;}
 
 /*#dictionary tr:hover {background-color: #ddd;}*/
@@ -20,4 +39,8 @@
   text-align: left;
   background-color: #04AA6D;
   color: white;
+}
+
+.spacer{
+  background-color: #c9c9c9;
 }

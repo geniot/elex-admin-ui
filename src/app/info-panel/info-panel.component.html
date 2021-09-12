@@ -14,18 +14,49 @@
       <div *ngIf="selectedDictionary" class="body-content-inner-wrapper">
         <table id="dictionary">
           <tbody>
-          <tr><td style="width:150px;">File</td><td>{{selectedDictionary.dataPath}}<span style="color:blue;">{{selectedDictionary.fileName}}</span></td></tr>
-          <tr><td>Size</td><td>{{selectedDictionary.fileSize}}&nbsp;bytes</td></tr>
-          <tr><td>Number of Entries</td><td>{{selectedDictionary.entries}}</td></tr>
-          <tr><td>Index Language</td><td>{{selectedDictionary.indexLanguageCode}}</td></tr>
-          <tr><td>Contents Language</td><td>{{selectedDictionary.contentsLanguageCode}}</td></tr>
-          <tr><td>Resources File</td>
+          <tr>
+            <td>Dictionary Status</td>
+            <td>{{selectedDictionary.status}}&nbsp;&nbsp;&nbsp;<a href="/download">DISABLE</a></td>
+          </tr>
+          <tr>
+            <td style="width:150px;">File</td>
+            <td>{{selectedDictionary.dataPath}}<span style="color:blue;">{{selectedDictionary.fileName}}</span></td>
+          </tr>
+          <tr>
+            <td>Download</td>
+            <td><a href="/download">ZIP</a>&nbsp;&nbsp;&nbsp;<a href="/download">EZP</a></td>
+          </tr>
+          <tr>
+            <td>Size</td>
+            <td>{{selectedDictionary.fileSize}}&nbsp;bytes</td>
+          </tr>
+          <tr>
+            <td>Number of Entries</td>
+            <td>{{selectedDictionary.entries}}</td>
+          </tr>
+          <tr>
+            <td>Index Language</td>
+            <td>{{selectedDictionary.indexLanguageCode}}</td>
+          </tr>
+          <tr>
+            <td>Contents Language</td>
+            <td>{{selectedDictionary.contentsLanguageCode}}</td>
+          </tr>
+          <tr>
+            <td class="spacer" colspan="2"></td>
+          </tr>
+          <tr>
+            <td>Resources File</td>
             <td *ngIf="selectedDictionary.resourcesFileName;else elseBlock">
               {{selectedDictionary.dataPath}}<span style="color:blue;">{{selectedDictionary.resourcesFileName}}</span>
             </td>
             <ng-template #elseBlock>
               <td>-</td>
             </ng-template>
+          </tr>
+          <tr>
+            <td>Download</td>
+            <td *ngIf="selectedDictionary.resourcesFileName;else elseBlock"><a href="/download">ZIP</a>&nbsp;&nbsp;&nbsp;<a href="/download">EZR</a></td>
           </tr>
           <tr>
             <td>Resources Size</td>
@@ -35,14 +66,30 @@
             <td>Resources Count</td>
             <td *ngIf="selectedDictionary.resourcesFileName;else elseBlock">{{selectedDictionary.resourcesCount}}</td>
           </tr>
-          <tr><td>Full-text Index Size</td><td>{{selectedDictionary.ftIndexSize}}&nbsp;bytes</td></tr>
-          <tr><td>Total Size</td><td>{{selectedDictionary.totalSize}}&nbsp;bytes</td></tr>
+          <tr>
+            <td class="spacer" colspan="2"></td>
+          </tr>
+          <tr>
+            <td>Full-text Index (FTI)</td>
+            <td><span class="disabled-link">DELETE</span>&nbsp;&nbsp;&nbsp;<a href="/download">RE-INDEX</a></td>
+          </tr>
+          <tr>
+            <td>FTI Size</td>
+            <td>{{selectedDictionary.ftIndexSize}}&nbsp;bytes</td>
+          </tr>
+          <tr>
+            <td class="spacer" colspan="2"></td>
+          </tr>
+          <tr>
+            <td>Total Size</td>
+            <td>{{selectedDictionary.totalSize}}&nbsp;bytes</td>
+          </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
-  <div class="table-row header">
-    <div class="ui-widget ui-widget-footer"><img style="cursor: pointer;" src="assets/connect.png"/></div>
-  </div>
+<!--  <div class="table-row header">-->
+<!--    <div class="ui-widget ui-widget-footer"><img style="cursor: pointer;" src="assets/connect.png"/></div>-->
+<!--  </div>-->
 </div>

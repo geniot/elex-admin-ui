@@ -16,6 +16,7 @@ export class AdminDictionary {
 
   ftIndexSize!:string;
   totalSize!:string;
+  status!:string;
 
   static EMPTY: AdminDictionary;
 }
