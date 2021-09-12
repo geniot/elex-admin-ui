@@ -1,3 +1,3 @@
 export enum Action {
-  INIT = "INIT",
+  TOGGLE_DICTIONARY_STATE
 }
