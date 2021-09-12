@@ -17,6 +17,7 @@
   padding: 3px;
   background-color:azure;
   font-size: 8pt;
+  cursor: pointer;
 }
 
 #dictionary .disabled-link{

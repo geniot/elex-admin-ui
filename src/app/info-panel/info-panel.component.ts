@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {InfoService} from "../infoservice";
 import {AdminDictionary} from "../model/admindictionary";
 import {environment} from "../../environments/environment";
+import {Action} from "../model/action";
 
 @Component({
   selector: 'app-info-panel',
@@ -26,8 +27,8 @@ export class InfoPanelComponent implements OnInit {
       });
     this.infoService.model.asObservable().subscribe(
       model => {
-        for (let dictionary of model.dictionaries){
-          if (dictionary.selected){
+        for (let dictionary of model.adminDictionaries) {
+          if (dictionary.selected) {
             this.infoService.selectedDictionary.next(dictionary);
             break;
           }
@@ -35,4 +36,8 @@ export class InfoPanelComponent implements OnInit {
       });
   }
 
+  onReindex() {
+    this.infoService.model.value.action = Action.REINDEX;
+    this.infoService.updateModel();
+  }
 }

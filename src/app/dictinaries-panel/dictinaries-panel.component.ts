@@ -16,7 +16,7 @@ export class DictinariesPanelComponent implements OnInit {
   ngOnInit(): void {
     this.infoService.model.asObservable().subscribe(
       model => {
-        this.dictionaries = model.dictionaries;
+        this.dictionaries = model.adminDictionaries;
       });
   }
 
