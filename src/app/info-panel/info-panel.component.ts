@@ -3,6 +3,7 @@ import {InfoService} from "../infoservice";
 import {AdminDictionary} from "../model/admindictionary";
 import {environment} from "../../environments/environment";
 import {Action} from "../model/action";
+import {Task} from "../model/task";
 
 @Component({
   selector: 'app-info-panel',
@@ -11,6 +12,7 @@ import {Action} from "../model/action";
 })
 export class InfoPanelComponent implements OnInit {
   selectedDictionary!: AdminDictionary | null;
+  task!: Task | null;
   baseApiUrl: String = environment.BASE_API_URL;
 
   constructor(private infoService: InfoService) {
@@ -24,6 +26,7 @@ export class InfoPanelComponent implements OnInit {
         } else {
           this.selectedDictionary = dictionary;
         }
+        this.task = null;
       });
     this.infoService.model.asObservable().subscribe(
       model => {
@@ -33,6 +36,16 @@ export class InfoPanelComponent implements OnInit {
             break;
           }
         }
+      });
+    this.infoService.taskExecutorModel.asObservable().subscribe(
+      model => {
+        for (let task of model.tasks) {
+          if (task.fileName == this.infoService.selectedDictionary.value.fileName) {
+            this.task = task;
+            return;
+          }
+        }
+        this.task = null;
       });
   }
 

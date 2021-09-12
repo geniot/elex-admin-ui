@@ -56,7 +56,8 @@
           </tr>
           <tr>
             <td>Download</td>
-            <td *ngIf="selectedDictionary.resourcesFileName;else elseBlock"><a href="/download">ZIP</a>&nbsp;&nbsp;&nbsp;<a href="/download">EZR</a></td>
+            <td *ngIf="selectedDictionary.resourcesFileName;else elseBlock"><a href="/download">ZIP</a>&nbsp;&nbsp;&nbsp;<a
+              href="/download">EZR</a></td>
           </tr>
           <tr>
             <td>Resources Size</td>
@@ -71,7 +72,9 @@
           </tr>
           <tr>
             <td>Full-text Index (FTI)</td>
-            <td><span class="disabled-link">DELETE</span>&nbsp;&nbsp;&nbsp;<a (click)="onReindex()">RE-INDEX</a></td>
+            <td><span class="disabled-link">DELETE</span>&nbsp;&nbsp;&nbsp;<a (click)="onReindex()">RE-INDEX</a>
+              <span *ngIf="task!=null">&nbsp;&nbsp;&nbsp;{{task.progress}}%</span>
+            </td>
           </tr>
           <tr>
             <td>FTI Size</td>
@@ -89,7 +92,7 @@
       </div>
     </div>
   </div>
-<!--  <div class="table-row header">-->
-<!--    <div class="ui-widget ui-widget-footer"><img style="cursor: pointer;" src="assets/connect.png"/></div>-->
-<!--  </div>-->
+  <!--  <div class="table-row header">-->
+  <!--    <div class="ui-widget ui-widget-footer"><img style="cursor: pointer;" src="assets/connect.png"/></div>-->
+  <!--  </div>-->
 </div>
