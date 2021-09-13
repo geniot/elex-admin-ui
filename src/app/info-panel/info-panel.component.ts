@@ -13,7 +13,7 @@ import {TaskStatus} from "../model/taskstatus";
 })
 export class InfoPanelComponent implements OnInit {
   selectedDictionary!: AdminDictionary | null;
-  task!: Task | null;
+  task: Task | null  = new Task();
   baseApiUrl: String = environment.BASE_API_URL;
 
   constructor(private infoService: InfoService) {
