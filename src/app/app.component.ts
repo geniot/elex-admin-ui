@@ -24,6 +24,7 @@ export class AppComponent {
       this.resetConfig()
     }
     this.infoService.updateModel();
+    this.infoService.updateTaskExecutorModel();
   }
 
   resetConfig() {

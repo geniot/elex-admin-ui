@@ -35,6 +35,7 @@ export class DictinariesPanelComponent implements OnInit {
       }
     }
     this.infoService.saveState();
+    this.infoService.updateTaskExecutorModel();
   }
 
 }

@@ -72,8 +72,14 @@
           </tr>
           <tr>
             <td>Full-text Index (FTI)</td>
-            <td><span class="disabled-link">DELETE</span>&nbsp;&nbsp;&nbsp;<a (click)="onReindex()">RE-INDEX</a>
-              <span *ngIf="task!=null">&nbsp;&nbsp;&nbsp;{{task.progress}}%</span>
+            <!--            <span class="disabled-link">DELETE</span>-->
+            <td><a *ngIf="task==null;else elseSpan" (click)="onReindex()">RE-INDEX</a>
+              <ng-template #elseSpan>
+                <span class="disabled-link">RE-INDEX</span>
+              </ng-template>
+              <span *ngIf="task!=null">&nbsp;&nbsp;&nbsp;<span
+                [ngStyle]="{'font-weight':'bold','font-size':'8pt','color':getTaskColor(task.status)}">{{task.status}}</span>&nbsp;{{task.progress}}
+                %</span>
             </td>
           </tr>
           <tr>
