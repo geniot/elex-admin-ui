@@ -16,7 +16,12 @@
           <tbody>
           <tr>
             <td>Dictionary Status</td>
-            <td>{{selectedDictionary.status}}&nbsp;&nbsp;&nbsp;<a href="/download">DISABLE</a></td>
+            <td>{{selectedDictionary.status}}&nbsp;&nbsp;&nbsp;
+              <a *ngIf="task==null;else elseStatus" href="/download">DISABLE</a>
+              <ng-template #elseStatus>
+                <span class="disabled-link">DISABLE</span>
+              </ng-template>
+            </td>
           </tr>
           <tr>
             <td style="width:150px;">File</td>
@@ -24,7 +29,7 @@
           </tr>
           <tr>
             <td>Download</td>
-            <td><a href="/download">ZIP</a>&nbsp;&nbsp;&nbsp;<a href="/download">EZP</a></td>
+            <td><a (click)="onDownload(selectedDictionary,'ezp')">EZP</a></td>
           </tr>
           <tr>
             <td>Size</td>
@@ -56,8 +61,8 @@
           </tr>
           <tr>
             <td>Download</td>
-            <td *ngIf="selectedDictionary.resourcesFileName;else elseBlock"><a href="/download">ZIP</a>&nbsp;&nbsp;&nbsp;<a
-              href="/download">EZR</a></td>
+            <td *ngIf="selectedDictionary.resourcesFileName;else elseBlock"><a
+              (click)="onDownload(selectedDictionary,'ezr')">EZR</a></td>
           </tr>
           <tr>
             <td>Resources Size</td>
@@ -73,8 +78,8 @@
           <tr>
             <td>Full-text Index (FTI)</td>
             <!--            <span class="disabled-link">DELETE</span>-->
-            <td><a *ngIf="task==null;else elseSpan" (click)="onReindex()">RE-INDEX</a>
-              <ng-template #elseSpan>
+            <td><a *ngIf="task==null;else elseReindex" (click)="onReindex()">RE-INDEX</a>
+              <ng-template #elseReindex>
                 <span class="disabled-link">RE-INDEX</span>
               </ng-template>
               <span *ngIf="task!=null">&nbsp;&nbsp;&nbsp;<span

@@ -13,7 +13,7 @@ import {TaskStatus} from "../model/taskstatus";
 })
 export class InfoPanelComponent implements OnInit {
   selectedDictionary!: AdminDictionary | null;
-  task: Task | null  = new Task();
+  task: Task | null = new Task();
   baseApiUrl: String = environment.BASE_API_URL;
 
   constructor(private infoService: InfoService) {
@@ -64,5 +64,10 @@ export class InfoPanelComponent implements OnInit {
       return "red";
     }
     return "blue";
+  }
+
+  onDownload(selectedDictionary: AdminDictionary, type: string) {
+    const url = this.baseApiUrl + "/admin/download?id=" + selectedDictionary.id + "&type=" + type;
+    window.open(url);
   }
 }
