@@ -5,6 +5,7 @@ import {environment} from "../../environments/environment";
 import {Action} from "../model/action";
 import {Task} from "../model/task";
 import {TaskStatus} from "../model/taskstatus";
+import {DictionaryStatus} from "../model/dictionarystatus";
 
 @Component({
   selector: 'app-info-panel',
@@ -69,5 +70,18 @@ export class InfoPanelComponent implements OnInit {
   onDownload(selectedDictionary: AdminDictionary, type: string) {
     const url = this.baseApiUrl + "/admin/download?id=" + selectedDictionary.id + "&type=" + type;
     window.open(url);
+  }
+
+  changeStatusTxt(status: DictionaryStatus) {
+    if (status == DictionaryStatus.ENABLED) {
+      return "DISABLE";
+    } else {
+      return "ENABLE";
+    }
+  }
+
+  onChangeStatus() {
+    this.infoService.model.value.action = Action.TOGGLE_DICTIONARY_STATE;
+    this.infoService.updateModel();
   }
 }

@@ -1,3 +1,5 @@
+import {DictionaryStatus} from "./dictionarystatus";
+
 export class AdminDictionary {
   id!: number;
   name!: string;
@@ -5,18 +7,18 @@ export class AdminDictionary {
   contentsLanguageCode!: string;
   selected: boolean = false;
 
-  fileName!:string;
-  dataPath!:string;
-  fileSize!:string;
-  entries!:number;
+  fileName!: string;
+  dataPath!: string;
+  fileSize!: string;
+  entries!: number;
 
-  resourcesFileName!:string;
-  resourcesFileSize!:string;
-  resourcesCount!:number;
+  resourcesFileName!: string;
+  resourcesFileSize!: string;
+  resourcesCount!: number;
 
-  ftIndexSize!:string;
-  totalSize!:string;
-  status!:string;
+  ftIndexSize!: string;
+  totalSize!: string;
+  status: DictionaryStatus = DictionaryStatus.ENABLED;
 
   static EMPTY: AdminDictionary;
 }

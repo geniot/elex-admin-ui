@@ -16,10 +16,10 @@
           <tbody>
           <tr>
             <td>Dictionary Status</td>
-            <td>{{selectedDictionary.status}}&nbsp;&nbsp;&nbsp;
-              <a *ngIf="task==null;else elseStatus" href="/download">DISABLE</a>
+            <td><span style="font-size: 8pt;">{{selectedDictionary.status}}</span>&nbsp;&nbsp;&nbsp;
+              <a *ngIf="task==null;else elseStatus" (click)="onChangeStatus()">{{changeStatusTxt(selectedDictionary.status)}}</a>
               <ng-template #elseStatus>
-                <span class="disabled-link">DISABLE</span>
+                <span class="disabled-link">{{changeStatusTxt(selectedDictionary.status)}}</span>
               </ng-template>
             </td>
           </tr>
