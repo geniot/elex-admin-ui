@@ -6,6 +6,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../environments/environment";
 import {AdminDictionary} from "./model/admindictionary";
 import {TaskExecutorModel} from "./model/taskexecutormodel";
+import {Action} from "./model/action";
 
 
 @Injectable({providedIn: 'root'})
@@ -30,6 +31,15 @@ export class InfoService {
     setInterval(() => {
       this.updateTaskExecutorModel();
     }, 500);
+
+    this.taskExecutorModel.asObservable().subscribe(
+      taskExecutorModel => {
+        for (let task of taskExecutorModel.tasks) {
+          if (task.action == Action.POOL_UPDATE) {
+            this.updateModel();
+          }
+        }
+      });
   }
 
   updateModel() {

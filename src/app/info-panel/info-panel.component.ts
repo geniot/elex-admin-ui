@@ -35,14 +35,15 @@ export class InfoPanelComponent implements OnInit {
         for (let dictionary of model.adminDictionaries) {
           if (dictionary.selected) {
             this.infoService.selectedDictionary.next(dictionary);
-            break;
+            return;
           }
         }
+        this.infoService.selectedDictionary.next(AdminDictionary.EMPTY);
       });
     this.infoService.taskExecutorModel.asObservable().subscribe(
       taskExecutorModel => {
         for (let task of taskExecutorModel.tasks) {
-          if (task.fileName == this.infoService.selectedDictionary.value.fileName) {
+          if (task.fileName!=null && task.fileName == this.infoService.selectedDictionary.value.fileName) {
             this.task = task;
             return;
           }

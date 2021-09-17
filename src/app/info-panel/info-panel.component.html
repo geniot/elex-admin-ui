@@ -16,12 +16,25 @@
           <tbody>
           <tr>
             <td>Dictionary Status</td>
-            <td><span style="font-size: 8pt;">{{selectedDictionary.status}}</span>&nbsp;&nbsp;&nbsp;
-              <a *ngIf="task==null;else elseStatus" (click)="onChangeStatus()">{{changeStatusTxt(selectedDictionary.status)}}</a>
+            <td *ngIf="selectedDictionary.status=='ENABLED';else elseDisabled"><span
+              style="font-size: 8pt;">{{selectedDictionary.status}}</span>&nbsp;&nbsp;&nbsp;
+              <a *ngIf="task==null;else elseStatus"
+                 (click)="onChangeStatus()">{{changeStatusTxt(selectedDictionary.status)}}</a>
               <ng-template #elseStatus>
                 <span class="disabled-link">{{changeStatusTxt(selectedDictionary.status)}}</span>
               </ng-template>
             </td>
+            <ng-template #elseDisabled>
+              <td><a *ngIf="task==null;else elseStatus"
+                     (click)="onChangeStatus()">{{changeStatusTxt(selectedDictionary.status)}}</a>
+                &nbsp;&nbsp;&nbsp;
+                <span
+                  style="font-size: 8pt;">{{selectedDictionary.status}}</span>
+                <ng-template #elseStatus>
+                  <span class="disabled-link">{{changeStatusTxt(selectedDictionary.status)}}</span>
+                </ng-template>
+              </td>
+            </ng-template>
           </tr>
           <tr>
             <td style="width:150px;">File</td>
@@ -29,7 +42,11 @@
           </tr>
           <tr>
             <td>Download</td>
-            <td><a (click)="onDownload(selectedDictionary,'ezp')">EZP</a></td>
+            <td><a *ngIf="selectedDictionary.status=='ENABLED';else elseDisabledEzp" (click)="onDownload(selectedDictionary,'ezp')">EZP</a>
+            <ng-template #elseDisabledEzp>
+              <span class="disabled-link">EZP</span>
+            </ng-template>
+            </td>
           </tr>
           <tr>
             <td>Size</td>
@@ -37,15 +54,20 @@
           </tr>
           <tr>
             <td>Number of Entries</td>
-            <td>{{selectedDictionary.entries}}</td>
+            <td *ngIf="selectedDictionary.status=='ENABLED';else elseEmpty">{{selectedDictionary.entries}}</td>
+            <ng-template #elseEmpty>
+              <td>-</td>
+            </ng-template>
           </tr>
           <tr>
             <td>Index Language</td>
-            <td>{{selectedDictionary.indexLanguageCode}}</td>
+            <td
+              *ngIf="selectedDictionary.status=='ENABLED';else elseEmpty">{{selectedDictionary.indexLanguageCode}}</td>
           </tr>
           <tr>
             <td>Contents Language</td>
-            <td>{{selectedDictionary.contentsLanguageCode}}</td>
+            <td
+              *ngIf="selectedDictionary.status=='ENABLED';else elseEmpty">{{selectedDictionary.contentsLanguageCode}}</td>
           </tr>
           <tr>
             <td class="spacer" colspan="2"></td>
@@ -61,7 +83,7 @@
           </tr>
           <tr>
             <td>Download</td>
-            <td *ngIf="selectedDictionary.resourcesFileName;else elseBlock"><a
+            <td *ngIf="selectedDictionary.resourcesFileName && selectedDictionary.status=='ENABLED';else elseBlock"><a
               (click)="onDownload(selectedDictionary,'ezr')">EZR</a></td>
           </tr>
           <tr>
@@ -70,7 +92,8 @@
           </tr>
           <tr>
             <td>Resources Count</td>
-            <td *ngIf="selectedDictionary.resourcesFileName;else elseBlock">{{selectedDictionary.resourcesCount}}</td>
+            <td
+              *ngIf="selectedDictionary.status=='ENABLED' && selectedDictionary.resourcesFileName;else elseBlock">{{selectedDictionary.resourcesCount}}</td>
           </tr>
           <tr>
             <td class="spacer" colspan="2"></td>
@@ -78,7 +101,7 @@
           <tr>
             <td>Full-text Index (FTI)</td>
             <!--            <span class="disabled-link">DELETE</span>-->
-            <td><a *ngIf="task==null;else elseReindex" (click)="onReindex()">RE-INDEX</a>
+            <td><a *ngIf="task==null && selectedDictionary.status=='ENABLED';else elseReindex" (click)="onReindex()">RE-INDEX</a>
               <ng-template #elseReindex>
                 <span class="disabled-link">RE-INDEX</span>
               </ng-template>
@@ -89,14 +112,16 @@
           </tr>
           <tr>
             <td>FTI Size</td>
-            <td>{{selectedDictionary.ftIndexSize}}&nbsp;bytes</td>
+            <td *ngIf="selectedDictionary.status=='ENABLED';else elseEmpty">{{selectedDictionary.ftIndexSize}}&nbsp;bytes</td>
           </tr>
           <tr>
             <td class="spacer" colspan="2"></td>
           </tr>
           <tr>
             <td>Total Size</td>
-            <td>{{selectedDictionary.totalSize}}&nbsp;bytes</td>
+            <td
+              *ngIf="selectedDictionary.status=='ENABLED';else elseEmpty">{{selectedDictionary.totalSize}}&nbsp;bytes
+            </td>
           </tr>
           </tbody>
         </table>

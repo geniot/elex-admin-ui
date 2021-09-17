@@ -12,7 +12,11 @@
              [ngClass]="odd ? 'odd' : 'even'"
         >
           <div (click)="onSelect(dictionary)"
-               [ngClass]="{  'dictionary':true,'dictionary-selected': dictionary.selected }">{{dictionary.name}}</div>
+               [ngClass]="{
+               'dictionary':true,
+               'dictionary-selected': dictionary.selected,
+               'dictionary-disabled':dictionary.status=='DISABLED'
+               }">{{dictionary.name}}</div>
 
         </div>
       </div>
