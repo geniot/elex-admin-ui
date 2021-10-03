@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {InfoService} from "../infoservice";
 import {AdminDictionary} from "../model/admindictionary";
+import {Action} from "../model/action";
 
 @Component({
   selector: 'app-dictinaries-panel',
@@ -38,4 +39,8 @@ export class DictinariesPanelComponent implements OnInit {
     this.infoService.updateTaskExecutorModel();
   }
 
+  onReindexAll() {
+    this.infoService.model.value.action = Action.REINDEX_ALL;
+    this.infoService.updateModel();
+  }
 }
