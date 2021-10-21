@@ -1,4 +1,5 @@
 import {DictionaryStatus} from "./dictionarystatus";
+import {Task} from "./task";
 
 export class AdminDictionary {
   id!: number;
@@ -19,6 +20,8 @@ export class AdminDictionary {
   ftIndexSize!: string;
   totalSize!: string;
   status: DictionaryStatus = DictionaryStatus.ENABLED;
+
+  task!:Task | null;
 
   static EMPTY: AdminDictionary;
 }

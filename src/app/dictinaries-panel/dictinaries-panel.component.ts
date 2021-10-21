@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {InfoService} from "../infoservice";
 import {AdminDictionary} from "../model/admindictionary";
+import {Task} from "../model/task";
 import {Action} from "../model/action";
 
 @Component({
@@ -18,6 +19,13 @@ export class DictinariesPanelComponent implements OnInit {
     this.infoService.model.asObservable().subscribe(
       model => {
         this.dictionaries = model.adminDictionaries;
+      });
+
+    this.infoService.taskExecutorModel.asObservable().subscribe(
+      taskExecutorModel => {
+        for (let adminDictionary of this.dictionaries){
+          adminDictionary.task = this.getTaskByFileName(taskExecutorModel.tasks, adminDictionary.fileName);
+        }
       });
   }
 
@@ -42,5 +50,14 @@ export class DictinariesPanelComponent implements OnInit {
   onReindexAll() {
     this.infoService.model.value.action = Action.REINDEX_ALL;
     this.infoService.updateModel();
+  }
+
+  private getTaskByFileName(tasks: Task[], fileName:string):Task | null {
+    for (let task of tasks) {
+      if (task.fileName==fileName) {
+        return task;
+      }
+    }
+    return null;
   }
 }

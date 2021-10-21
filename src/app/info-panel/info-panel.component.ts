@@ -30,6 +30,7 @@ export class InfoPanelComponent implements OnInit {
         }
         this.task = null;
       });
+
     this.infoService.model.asObservable().subscribe(
       model => {
         for (let dictionary of model.adminDictionaries) {
@@ -40,6 +41,7 @@ export class InfoPanelComponent implements OnInit {
         }
         this.infoService.selectedDictionary.next(AdminDictionary.EMPTY);
       });
+
     this.infoService.taskExecutorModel.asObservable().subscribe(
       taskExecutorModel => {
         for (let task of taskExecutorModel.tasks) {
