@@ -3,18 +3,20 @@ import {LayoutConfig} from "./model/layoutconfig";
 import {IOutputData} from "angular-split";
 import {cloneDeep} from 'lodash';
 import {InfoService} from "./infoservice";
+import {DestroyableComponent} from "./destroyablecomponent";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent extends DestroyableComponent{
   splitLayoutLocalStorageName = 'elex-admin-splitLayoutLocalStorageName';
   config: LayoutConfig = new LayoutConfig();
   defaultConfig: LayoutConfig = new LayoutConfig();
 
   constructor(private infoService: InfoService) {
+    super();
   }
 
   ngOnInit() {

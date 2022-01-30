@@ -3,30 +3,32 @@ import {InfoService} from "../infoservice";
 import {AdminDictionary} from "../model/admindictionary";
 import {Task} from "../model/task";
 import {Action} from "../model/action";
+import {DestroyableComponent} from "../destroyablecomponent";
 
 @Component({
   selector: 'app-dictinaries-panel',
   templateUrl: './dictinaries-panel.component.html',
   styleUrls: ['./dictinaries-panel.component.css']
 })
-export class DictinariesPanelComponent implements OnInit {
+export class DictinariesPanelComponent extends DestroyableComponent implements OnInit {
   dictionaries: AdminDictionary[] = [];
 
   constructor(private infoService: InfoService) {
+    super();
   }
 
   ngOnInit(): void {
-    this.infoService.model.asObservable().subscribe(
+    this.subscriptions.push(this.infoService.model.asObservable().subscribe(
       model => {
         this.dictionaries = model.adminDictionaries;
-      });
+      }));
 
-    this.infoService.taskExecutorModel.asObservable().subscribe(
+    this.subscriptions.push(this.infoService.taskExecutorModel.asObservable().subscribe(
       taskExecutorModel => {
-        for (let adminDictionary of this.dictionaries){
+        for (let adminDictionary of this.dictionaries) {
           adminDictionary.task = this.getTaskByFileName(taskExecutorModel.tasks, adminDictionary.fileName);
         }
-      });
+      }));
   }
 
   onSelect(d: AdminDictionary) {
@@ -39,7 +41,7 @@ export class DictinariesPanelComponent implements OnInit {
           dictionary.selected = true;
           this.infoService.selectedDictionary.next(dictionary);
         }
-      }else{
+      } else {
         dictionary.selected = false;
       }
     }
@@ -52,9 +54,9 @@ export class DictinariesPanelComponent implements OnInit {
     this.infoService.updateModel();
   }
 
-  private getTaskByFileName(tasks: Task[], fileName:string):Task | null {
+  private getTaskByFileName(tasks: Task[], fileName: string): Task | null {
     for (let task of tasks) {
-      if (task.fileName==fileName) {
+      if (task.fileName == fileName) {
         return task;
       }
     }

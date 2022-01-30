@@ -6,22 +6,24 @@ import {Action} from "../model/action";
 import {Task} from "../model/task";
 import {TaskStatus} from "../model/taskstatus";
 import {DictionaryStatus} from "../model/dictionarystatus";
+import {DestroyableComponent} from "../destroyablecomponent";
 
 @Component({
   selector: 'app-info-panel',
   templateUrl: './info-panel.component.html',
   styleUrls: ['./info-panel.component.css']
 })
-export class InfoPanelComponent implements OnInit {
+export class InfoPanelComponent extends DestroyableComponent implements OnInit {
   selectedDictionary!: AdminDictionary | null;
   task: Task | null = new Task();
   baseApiUrl: String = environment.BASE_API_URL;
 
   constructor(private infoService: InfoService) {
+    super();
   }
 
   ngOnInit(): void {
-    this.infoService.selectedDictionary.asObservable().subscribe(
+    this.subscriptions.push(this.infoService.selectedDictionary.asObservable().subscribe(
       dictionary => {
         if (dictionary == AdminDictionary.EMPTY) {
           this.selectedDictionary = null;
@@ -29,9 +31,9 @@ export class InfoPanelComponent implements OnInit {
           this.selectedDictionary = dictionary;
         }
         this.task = null;
-      });
+      }));
 
-    this.infoService.model.asObservable().subscribe(
+    this.subscriptions.push(this.infoService.model.asObservable().subscribe(
       model => {
         for (let dictionary of model.adminDictionaries) {
           if (dictionary.selected) {
@@ -40,18 +42,18 @@ export class InfoPanelComponent implements OnInit {
           }
         }
         this.infoService.selectedDictionary.next(AdminDictionary.EMPTY);
-      });
+      }));
 
-    this.infoService.taskExecutorModel.asObservable().subscribe(
+    this.subscriptions.push(this.infoService.taskExecutorModel.asObservable().subscribe(
       taskExecutorModel => {
         for (let task of taskExecutorModel.tasks) {
-          if (task.fileName!=null && task.fileName == this.infoService.selectedDictionary.value.fileName) {
+          if (task.fileName != null && task.fileName == this.infoService.selectedDictionary.value.fileName) {
             this.task = task;
             return;
           }
         }
         this.task = null;
-      });
+      }));
   }
 
   onReindex() {
